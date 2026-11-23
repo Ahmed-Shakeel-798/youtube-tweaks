@@ -1,7 +1,11 @@
 {
   "manifest_version": 3,
   "name": "YT Columns",
-  "version": "0.1",
+  "version": "0.2",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
