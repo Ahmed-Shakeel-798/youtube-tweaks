@@ -3,17 +3,77 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body { font: 14px system-ui, sans-serif; width: 200px; padding: 12px; }
-    .row { display: flex; gap: 8px; align-items: center; }
-    input { flex: 1; }
+    :root {
+      --accent-1: #ff7a59;
+      --accent-2: #e8336d;
+      --knob: url("icons/knob.svg");
+      --pct: 50%;
+    }
+    body {
+      font: 14px system-ui, sans-serif;
+      width: 240px;
+      margin: 0;
+      padding: 14px 16px 12px;
+      color: #222;
+    }
+    header { display: flex; justify-content: space-between; align-items: baseline; }
+    h1 { font-size: 14px; margin: 0; }
+    #val {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* ---- The slider ---- */
+    input[type=range] {
+      -webkit-appearance: none;   /* drop Chrome's default look */
+      appearance: none;
+      width: 100%;
+      height: 40px;               /* room for the big knob */
+      margin: 6px 0 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    /* The track: filled part is a gradient, the rest is grey. --pct is set from JS */
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 8px;
+      border-radius: 99px;
+      background:
+        linear-gradient(90deg, var(--accent-1), var(--accent-2)) 0 / var(--pct) 100% no-repeat,
+        #e9e3e7;
+    }
+    /* The knob (Chrome calls it the "thumb") */
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 34px;
+      height: 34px;
+      margin-top: -13px;          /* (8px track - 34px knob) / 2 = centre it */
+      border: none;
+      background: var(--knob) center / contain no-repeat;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,.25));
+      transition: transform .15s;
+    }
+    input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.1) rotate(-8deg); }
+    input[type=range]:active::-webkit-slider-thumb { transform: scale(1.2) rotate(8deg); }
+
+    .ticks {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 13px;            /* tick centres line up with knob centres */
+      font-size: 11px;
+      color: #999;
+    }
   </style>
 </head>
 <body>
-  <b>Videos per row</b>
-  <div class="row">
-    <input id="slider" type="range" min="2" max="10">
+  <header>
+    <h1>Videos per row</h1>
     <span id="val"></span>
-  </div>
+  </header>
+  <input id="slider" type="range" min="2" max="10">
+  <div class="ticks"><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div>
   <script src="popup.js"></script>
 </body>
 </html>
