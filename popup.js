@@ -2,7 +2,10 @@
 const root = document.documentElement;
 const slider = document.getElementById("slider");
 const val = document.getElementById("val");
-const swatches = document.getElementById("swatches");
+const rows = {
+  dark: document.getElementById("swatches-dark"),
+  light: document.getElementById("swatches-light"),
+};
 
 // ---------- Videos per row ----------
 
@@ -29,7 +32,11 @@ async function applyPopupTheme(name) {
   for (const [prop, value] of Object.entries(theme.popup)) {
     root.style.setProperty(prop, value);
   }
-  for (const btn of swatches.children) {
+  // Light themes also flip the popup's built-in parts (scrollbars etc.) and border
+  root.style.colorScheme = theme.light ? "light" : "dark";
+  root.style.setProperty("--border", theme.light ? "rgba(0,0,0,.06)" : "#ffffff12");
+
+  for (const btn of document.querySelectorAll(".swatch")) {
     btn.classList.toggle("active", btn.dataset.theme === name);
   }
 
@@ -42,10 +49,10 @@ async function applyPopupTheme(name) {
   root.style.setProperty("--knob", `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
 }
 
-// Build one round button per theme
+// Build one round button per theme: dark themes in the first row, light in the second
 for (const [name, theme] of Object.entries(THEMES)) {
   const btn = document.createElement("button");
-  btn.className = "swatch";
+  btn.className = theme.light ? "swatch light" : "swatch";
   btn.title = theme.label;
   btn.dataset.theme = name;
   btn.style.background = `linear-gradient(135deg, ${theme.swatch[0]}, ${theme.swatch[1]})`;
@@ -53,7 +60,7 @@ for (const [name, theme] of Object.entries(THEMES)) {
     applyPopupTheme(name);
     chrome.storage.sync.set({ theme: name }); // content.js picks this up via onChanged
   });
-  swatches.appendChild(btn);
+  (theme.light ? rows.light : rows.dark).appendChild(btn);
 }
 
 // ---------- Load saved settings ----------

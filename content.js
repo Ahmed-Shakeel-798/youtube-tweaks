@@ -90,19 +90,31 @@ const YT_DARK_DEFAULTS = {
   "241,241,241": "text",   // #f1f1f1  primary text
   "170,170,170": "text2",  // #aaaaaa  secondary text
   "62,166,255": "accent",  // #3ea6ff  links / call to action
+  // see-through whites used for hover states, dividers and borders
+  "255,255,255,0.1": "overlay1",
+  "255,255,255,0.2": "overlay2",
 };
 
-// "#0f0f0f" / "#fff" / "rgb(15, 15, 15)" -> "15,15,15" (opaque colours only)
+// Normalise any colour spelling to one lookup key:
+// "#0f0f0f" / "#0F0F0F" / "rgb(15, 15, 15)" -> "15,15,15"
+// "#ffffff1a" / "rgba(255,255,255,.1)"        -> "255,255,255,0.1"
 function rgbKey(value) {
   value = value.trim().toLowerCase();
-  let m = value.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/);
+  let r, g, b, a = 1;
+  let m = value.match(/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/);
   if (m) {
     let hex = m[1];
     if (hex.length === 3) hex = [...hex].map((c) => c + c).join("");
-    return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(",");
+    [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    if (hex.length === 8) a = parseInt(hex.slice(6), 16) / 255;
+  } else {
+    m = value.match(/^rgba?\(\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)\s*(?:[,/]\s*([\d.]+%?))?\s*\)$/);
+    if (!m) return null; // var(...), gradients, etc.: not a plain colour
+    [r, g, b] = [m[1], m[2], m[3]].map(Number);
+    if (m[4]) a = m[4].endsWith("%") ? parseFloat(m[4]) / 100 : parseFloat(m[4]);
   }
-  m = value.match(/^rgba?\(\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)\s*(?:[,/]\s*(1|1\.0+|100%))?\s*\)$/);
-  return m ? `${m[1]},${m[2]},${m[3]}` : null;
+  a = Number(a.toFixed(2));
+  return a === 1 ? `${r},${g},${b}` : `${r},${g},${b},${a}`;
 }
 
 function* allRules(list) {
@@ -135,6 +147,11 @@ function remapByValue() {
       if (decls.length) blocks.push(`${rule.selectorText} { ${decls.join(" ")} }`);
     }
   }
+  // Light themes: the YouTube logo's lettering is plain white in dark mode,
+  // which would vanish on a light background, so paint it with the text colour
+  if (THEMES[currentTheme].light) {
+    blocks.push(`#logo-icon [fill="#fff"], #logo-icon [fill="#FFF"], #logo-icon [fill="#ffffff"], #logo-icon [fill="#FFFFFF"] { fill: ${t.text} !important; }`);
+  }
   out.textContent = blocks.join("\n");
 }
 
@@ -155,6 +172,22 @@ new MutationObserver((mutations) => {
 }).observe(document.documentElement, { childList: true, subtree: true });
 document.addEventListener("DOMContentLoaded", scheduleRemap);
 window.addEventListener("load", scheduleRemap);
+
+// YouTube can also add CSS rules into an EXISTING stylesheet from code (sheet.insertRule),
+// which the observer above can't see. So every 2s we count the rules (cheap: top level
+// only) and rescan if the number changed.
+let lastRuleCount = 0;
+setInterval(() => {
+  if (!(THEMES[currentTheme] || THEMES.default).yt) return; // Default theme: nothing to do
+  let count = document.styleSheets.length;
+  for (const sheet of document.styleSheets) {
+    try { count += sheet.cssRules.length; } catch {}
+  }
+  if (count !== lastRuleCount) {
+    lastRuleCount = count;
+    scheduleRemap();
+  }
+}, 2000);
 
 function setTheme(name) {
   currentTheme = name;
