@@ -3,7 +3,7 @@
 //   swatch - colours for the round button in the popup
 //   popup  - values for the popup's own CSS variables
 //   yt     - colours to put on YouTube (null = leave YouTube alone)
-//   light  - true for the light themes (2nd swatch row): dark text on a light page
+//   light  - true for the light themes: dark text on a tinted light page
 const THEMES = {
   default: {
     label: "Default",
@@ -61,67 +61,52 @@ const THEMES = {
     },
   },
 
-  // ---------- Light themes (second row of swatches) ----------
+  // ---------- Light themes (after the divider in the swatch row) ----------
   // These recolour YouTube's DARK mode into a light palette, so you don't need to
   // change YouTube's own appearance setting.
-  coralLight: {
-    label: "Coral Light", light: true,
-    swatch: ["#ffd6cc", "#ffadc4"],
-    popup: {
-      "--accent-1": "#ff7a59", "--accent-2": "#e8336d",
-      "--frame": "#fbe9e4", "--card": "#fff8f6", "--track": "#f3d6ce",
-      "--text": "#2e1a17", "--muted": "#9a7a74",
-    },
-    yt: {
-      base: "#fff6f3", raised: "#ffece6", menu: "#ffffff",
-      chip: "#fde2da", chipHover: "#f9d0c4",
-      text: "#2e1a17", text2: "#7a5a54", accent: "#d6336c",
-      overlay1: "rgba(80,20,10,0.07)", overlay2: "rgba(80,20,10,0.14)",
-    },
-  },
   tealLight: {
     label: "Teal Light", light: true,
-    swatch: ["#c9f2ec", "#8fe0d4"],
+    swatch: ["#a8e6dc", "#4fc4b4"],
     popup: {
-      "--accent-1": "#2dd4bf", "--accent-2": "#0d9488",
-      "--frame": "#dff3f0", "--card": "#f4fcfb", "--track": "#c4e6e1",
-      "--text": "#0f2a28", "--muted": "#5f807c",
+      "--accent-1": "#14b8a6", "--accent-2": "#0f766e",
+      "--frame": "#b8e3dc", "--card": "#d4f1ec", "--track": "#a6d9d1",
+      "--text": "#0b2e2a", "--muted": "#3f6b65",
     },
     yt: {
-      base: "#f1fbf9", raised: "#e2f5f2", menu: "#ffffff",
-      chip: "#d5efeb", chipHover: "#c4e6e1",
-      text: "#0f2a28", text2: "#4f6f6b", accent: "#0d9488",
-      overlay1: "rgba(10,60,55,0.07)", overlay2: "rgba(10,60,55,0.14)",
+      base: "#d4f1ec", raised: "#c3e9e3", menu: "#e8f8f5",
+      chip: "#b8e3dc", chipHover: "#a6d9d1",
+      text: "#0b2e2a", text2: "#3f6b65", accent: "#0f766e",
+      overlay1: "rgba(10,60,55,0.08)", overlay2: "rgba(10,60,55,0.16)",
     },
   },
   lavenderLight: {
     label: "Lavender Light", light: true,
-    swatch: ["#ece3ff", "#cdb8fb"],
+    swatch: ["#d9c8fb", "#a98bf2"],
     popup: {
-      "--accent-1": "#c4a8fb", "--accent-2": "#8b5cf6",
-      "--frame": "#ebe4fa", "--card": "#faf7ff", "--track": "#ddd2f7",
-      "--text": "#241b35", "--muted": "#7d7196",
+      "--accent-1": "#a78bfa", "--accent-2": "#6d28d9",
+      "--frame": "#d3c3f5", "--card": "#e6dcfb", "--track": "#c5b2f0",
+      "--text": "#22173a", "--muted": "#5d4f80",
     },
     yt: {
-      base: "#f8f5ff", raised: "#efe9fd", menu: "#ffffff",
-      chip: "#e9e1fb", chipHover: "#ddd2f7",
-      text: "#241b35", text2: "#6b5f85", accent: "#7c3aed",
-      overlay1: "rgba(50,20,100,0.07)", overlay2: "rgba(50,20,100,0.14)",
+      base: "#e6dcfb", raised: "#dccff8", menu: "#f1ebfe",
+      chip: "#d3c3f5", chipHover: "#c5b2f0",
+      text: "#22173a", text2: "#5d4f80", accent: "#6d28d9",
+      overlay1: "rgba(50,20,100,0.08)", overlay2: "rgba(50,20,100,0.16)",
     },
   },
   midnightLight: {
     label: "Sky Light", light: true,
-    swatch: ["#d6e9ff", "#9cc8fb"],
+    swatch: ["#bcd8fa", "#6aa6ee"],
     popup: {
-      "--accent-1": "#7cc4ff", "--accent-2": "#2563eb",
-      "--frame": "#e1edfb", "--card": "#f6faff", "--track": "#c7ddf8",
-      "--text": "#0f1f38", "--muted": "#6a7f9e",
+      "--accent-1": "#60a5fa", "--accent-2": "#1d4ed8",
+      "--frame": "#bdd5f5", "--card": "#d6e7fb", "--track": "#aecbf1",
+      "--text": "#0c1d36", "--muted": "#47608a",
     },
     yt: {
-      base: "#f3f8ff", raised: "#e6f0fd", menu: "#ffffff",
-      chip: "#d9e9fc", chipHover: "#c7ddf8",
-      text: "#0f1f38", text2: "#556a8a", accent: "#2563eb",
-      overlay1: "rgba(10,40,90,0.07)", overlay2: "rgba(10,40,90,0.14)",
+      base: "#d6e7fb", raised: "#c8ddf8", menu: "#ebf3fe",
+      chip: "#bdd5f5", chipHover: "#aecbf1",
+      text: "#0c1d36", text2: "#47608a", accent: "#1d4ed8",
+      overlay1: "rgba(10,40,90,0.08)", overlay2: "rgba(10,40,90,0.16)",
     },
   },
 };

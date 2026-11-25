@@ -2,10 +2,7 @@
 const root = document.documentElement;
 const slider = document.getElementById("slider");
 const val = document.getElementById("val");
-const rows = {
-  dark: document.getElementById("swatches-dark"),
-  light: document.getElementById("swatches-light"),
-};
+const swatches = document.getElementById("swatches");
 
 // ---------- Videos per row ----------
 
@@ -49,8 +46,15 @@ async function applyPopupTheme(name) {
   root.style.setProperty("--knob", `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
 }
 
-// Build one round button per theme: dark themes in the first row, light in the second
+// Build one round button per theme, with a thin divider before the first light theme
+let dividerAdded = false;
 for (const [name, theme] of Object.entries(THEMES)) {
+  if (theme.light && !dividerAdded) {
+    const divider = document.createElement("span");
+    divider.className = "divider";
+    swatches.appendChild(divider);
+    dividerAdded = true;
+  }
   const btn = document.createElement("button");
   btn.className = theme.light ? "swatch light" : "swatch";
   btn.title = theme.label;
@@ -60,7 +64,7 @@ for (const [name, theme] of Object.entries(THEMES)) {
     applyPopupTheme(name);
     chrome.storage.sync.set({ theme: name }); // content.js picks this up via onChanged
   });
-  (theme.light ? rows.light : rows.dark).appendChild(btn);
+  swatches.appendChild(btn);
 }
 
 // ---------- Load saved settings ----------

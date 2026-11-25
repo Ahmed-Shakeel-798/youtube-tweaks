@@ -79,11 +79,11 @@
 
     /* ---- Theme swatches ---- */
     h2 { font-size: 13px; margin: 14px 0 8px; font-weight: 600; }
-    .swatches { display: flex; gap: 10px; }
-    .swatches + .swatches { margin-top: 10px; }  /* gap between the dark and light rows */
+    #swatches { display: flex; align-items: center; gap: 7px; }
+    .divider { width: 1px; height: 18px; background: var(--muted); opacity: .4; margin: 0 2px; }
     .swatch {
-      width: 26px;
-      height: 26px;
+      width: 22px;
+      height: 22px;
       padding: 0;
       border: none;
       border-radius: 50%;
@@ -115,8 +115,7 @@
   <div class="ticks"><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div>
 
   <h2>Theme</h2>
-  <div class="swatches" id="swatches-dark"></div>
-  <div class="swatches" id="swatches-light"></div>
+  <div id="swatches"></div>
 </div>
 <script src="themes.js"></script>
 <script src="popup.js"></script>

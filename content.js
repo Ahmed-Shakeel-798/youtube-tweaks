@@ -117,6 +117,21 @@ function rgbKey(value) {
   return a === 1 ? `${r},${g},${b}` : `${r},${g},${b},${a}`;
 }
 
+// Turn a YouTube colour key into the theme's colour (or null if we don't know it).
+// 1. exact match: "15,15,15" -> theme.base
+// 2. see-through version of a known colour, e.g. the frosted top bar "15,15,15,0.8":
+//    use the theme colour at the SAME transparency
+function themedValue(key, t) {
+  if (!key) return null;
+  if (YT_DARK_DEFAULTS[key]) return t[YT_DARK_DEFAULTS[key]];
+  const [r, g, b, a] = key.split(",");
+  const name = a !== undefined && YT_DARK_DEFAULTS[`${r},${g},${b}`];
+  if (!name || !t[name].startsWith("#")) return null;
+  const hex = t[name].slice(1);
+  const [tr, tg, tb] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return `rgba(${tr}, ${tg}, ${tb}, ${a})`;
+}
+
 function* allRules(list) {
   for (const rule of list) {
     yield rule;
@@ -141,15 +156,15 @@ function remapByValue() {
       const decls = [];
       for (const prop of rule.style) {
         if (!prop.startsWith("--")) continue;
-        const key = YT_DARK_DEFAULTS[rgbKey(rule.style.getPropertyValue(prop))];
-        if (key) decls.push(`${prop}: ${t[key]} !important;`);
+        const value = themedValue(rgbKey(rule.style.getPropertyValue(prop)), t);
+        if (value) decls.push(`${prop}: ${value} !important;`);
       }
       if (decls.length) blocks.push(`${rule.selectorText} { ${decls.join(" ")} }`);
     }
   }
   // Light themes: the YouTube logo's lettering is plain white in dark mode,
   // which would vanish on a light background, so paint it with the text colour
-  if (THEMES[currentTheme].light) {
+  if ((THEMES[currentTheme] || THEMES.default).light) {
     blocks.push(`#logo-icon [fill="#fff"], #logo-icon [fill="#FFF"], #logo-icon [fill="#ffffff"], #logo-icon [fill="#FFFFFF"] { fill: ${t.text} !important; }`);
   }
   out.textContent = blocks.join("\n");
