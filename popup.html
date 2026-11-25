@@ -73,8 +73,26 @@
       filter: drop-shadow(0 2px 3px rgba(0,0,0,.25));
       transition: transform .15s;
     }
+    html, body, .card { transition: background-color .25s; }
     input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.1) rotate(-8deg); }
     input[type=range]:active::-webkit-slider-thumb { transform: scale(1.2) rotate(8deg); }
+
+    /* ---- Theme swatches ---- */
+    h2 { font-size: 13px; margin: 14px 0 8px; font-weight: 600; }
+    #swatches { display: flex; gap: 10px; }
+    .swatch {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      transition: transform .15s, outline-color .15s;
+    }
+    .swatch:hover { transform: scale(1.12); }
+    .swatch.active { outline-color: var(--text); }
 
     .ticks {
       display: flex;
@@ -93,7 +111,11 @@
   </header>
   <input id="slider" type="range" min="2" max="10">
   <div class="ticks"><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div>
+
+  <h2>Theme</h2>
+  <div id="swatches"></div>
 </div>
-  <script src="popup.js"></script>
+<script src="themes.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>
