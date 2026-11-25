@@ -15,21 +15,8 @@ const THEMES = {
     },
     yt: null,
   },
-  teal: {
-    label: "Teal",
-    swatch: ["#5eead4", "#0f9e8e"],
-    popup: {
-      "--accent-1": "#5eead4", "--accent-2": "#14b8a6",
-      "--frame": "#0a1617", "--card": "#132728", "--track": "#24474a",
-      "--text": "#e3f4f2", "--muted": "#86aaa6",
-    },
-    yt: {
-      base: "#0c1a1b", raised: "#132728", menu: "#172f31",
-      chip: "#1d3a3c", chipHover: "#24474a",
-      text: "#e3f4f2", text2: "#94b8b4", accent: "#4fd1c5",
-      overlay1: "rgba(255,255,255,0.1)", overlay2: "rgba(255,255,255,0.2)",
-    },
-  },
+
+  // ---------- Dark themes ----------
   lavender: {
     label: "Lavender",
     swatch: ["#d8b4fe", "#8b5cf6"],
@@ -45,18 +32,18 @@ const THEMES = {
       overlay1: "rgba(255,255,255,0.1)", overlay2: "rgba(255,255,255,0.2)",
     },
   },
-  midnight: {
-    label: "Midnight Blue",
-    swatch: ["#93c5fd", "#2563eb"],
+  sage: {
+    label: "Sage",
+    swatch: ["#a9c4bd", "#5f8178"],
     popup: {
-      "--accent-1": "#93c5fd", "--accent-2": "#38bdf8",
-      "--frame": "#081020", "--card": "#121d33", "--track": "#233659",
-      "--text": "#e6eefc", "--muted": "#8c9dbd",
+      "--accent-1": "#a9c4bd", "--accent-2": "#84a59d",
+      "--frame": "#101614", "--card": "#1d2724", "--track": "#31433e",
+      "--text": "#e8f0ed", "--muted": "#93aaa4",
     },
     yt: {
-      base: "#0b1322", raised: "#121d33", menu: "#16233d",
-      chip: "#1b2a48", chipHover: "#233659",
-      text: "#e6eefc", text2: "#9aaccb", accent: "#7cc4ff",
+      base: "#151c1a", raised: "#1d2724", menu: "#223029",
+      chip: "#263430", chipHover: "#31433e",
+      text: "#e8f0ed", text2: "#a3b8b2", accent: "#84a59d",
       overlay1: "rgba(255,255,255,0.1)", overlay2: "rgba(255,255,255,0.2)",
     },
   },
@@ -64,21 +51,6 @@ const THEMES = {
   // ---------- Light themes (after the divider in the swatch row) ----------
   // These recolour YouTube's DARK mode into a light palette, so you don't need to
   // change YouTube's own appearance setting.
-  tealLight: {
-    label: "Teal Light", light: true,
-    swatch: ["#a8e6dc", "#4fc4b4"],
-    popup: {
-      "--accent-1": "#14b8a6", "--accent-2": "#0f766e",
-      "--frame": "#b8e3dc", "--card": "#d4f1ec", "--track": "#a6d9d1",
-      "--text": "#0b2e2a", "--muted": "#3f6b65",
-    },
-    yt: {
-      base: "#d4f1ec", raised: "#c3e9e3", menu: "#e8f8f5",
-      chip: "#b8e3dc", chipHover: "#a6d9d1",
-      text: "#0b2e2a", text2: "#3f6b65", accent: "#0f766e",
-      overlay1: "rgba(10,60,55,0.08)", overlay2: "rgba(10,60,55,0.16)",
-    },
-  },
   lavenderLight: {
     label: "Lavender Light", light: true,
     swatch: ["#d9c8fb", "#a98bf2"],
@@ -94,19 +66,64 @@ const THEMES = {
       overlay1: "rgba(50,20,100,0.08)", overlay2: "rgba(50,20,100,0.16)",
     },
   },
-  midnightLight: {
-    label: "Sky Light", light: true,
-    swatch: ["#bcd8fa", "#6aa6ee"],
+  cream: {
+    label: "Cream", light: true,
+    swatch: ["#fbf5ee", "#e9d6c0"],
     popup: {
-      "--accent-1": "#60a5fa", "--accent-2": "#1d4ed8",
-      "--frame": "#bdd5f5", "--card": "#d6e7fb", "--track": "#aecbf1",
-      "--text": "#0c1d36", "--muted": "#47608a",
+      "--accent-1": "#f28482", "--accent-2": "#d9545f",
+      "--frame": "#ecdcc9", "--card": "#f7ede2", "--track": "#e3cfb8",
+      "--text": "#3a2e25", "--muted": "#7d6b5c",
     },
     yt: {
-      base: "#d6e7fb", raised: "#c8ddf8", menu: "#ebf3fe",
-      chip: "#bdd5f5", chipHover: "#aecbf1",
-      text: "#0c1d36", text2: "#47608a", accent: "#1d4ed8",
-      overlay1: "rgba(10,40,90,0.08)", overlay2: "rgba(10,40,90,0.16)",
+      base: "#f7ede2", raised: "#f1e2d2", menu: "#fbf6f0",
+      chip: "#ecdcc9", chipHover: "#e3cfb8",
+      text: "#3a2e25", text2: "#7d6b5c", accent: "#d9545f",
+      overlay1: "rgba(80,50,20,0.08)", overlay2: "rgba(80,50,20,0.16)",
+    },
+  },
+  blush: {
+    label: "Blush", light: true,
+    swatch: ["#f8d6d0", "#eeaa9f"],
+    popup: {
+      "--accent-1": "#84a59d", "--accent-2": "#5f8178",
+      "--frame": "#f3c2ba", "--card": "#f9ddd8", "--track": "#eeb1a8",
+      "--text": "#3d1f1c", "--muted": "#85524c",
+    },
+    yt: {
+      base: "#f9ddd8", raised: "#f5cac3", menu: "#fdf1ef",
+      chip: "#f3c2ba", chipHover: "#eeb1a8",
+      text: "#3d1f1c", text2: "#85524c", accent: "#4f7169",
+      overlay1: "rgba(90,30,20,0.08)", overlay2: "rgba(90,30,20,0.16)",
+    },
+  },
+  mustard: {
+    label: "Mustard", light: true,
+    swatch: ["#f9d48f", "#eba63a"],
+    popup: {
+      "--accent-1": "#f28482", "--accent-2": "#d9545f",
+      "--frame": "#f6d391", "--card": "#fbe6bf", "--track": "#f2c574",
+      "--text": "#3b2a0c", "--muted": "#7d6530",
+    },
+    yt: {
+      base: "#fbe6bf", raised: "#f8dba6", menu: "#fdf3e0",
+      chip: "#f6d391", chipHover: "#f2c574",
+      text: "#3b2a0c", text2: "#7d6530", accent: "#b8484f",
+      overlay1: "rgba(90,60,0,0.08)", overlay2: "rgba(90,60,0,0.16)",
+    },
+  },
+  coral: {
+    label: "Coral", light: true,
+    swatch: ["#f6a3a1", "#e8615e"],
+    popup: {
+      "--accent-1": "#f6bd60", "--accent-2": "#e09a2a",
+      "--frame": "#f7b4b3", "--card": "#fbd6d5", "--track": "#f4a2a1",
+      "--text": "#3d1414", "--muted": "#874645",
+    },
+    yt: {
+      base: "#fbd6d5", raised: "#f9c3c2", menu: "#fdeceb",
+      chip: "#f7b4b3", chipHover: "#f4a2a1",
+      text: "#3d1414", text2: "#874645", accent: "#b63a38",
+      overlay1: "rgba(100,20,20,0.08)", overlay2: "rgba(100,20,20,0.16)",
     },
   },
 };
