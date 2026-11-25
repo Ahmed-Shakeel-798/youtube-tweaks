@@ -90,6 +90,9 @@ const YT_DARK_DEFAULTS = {
   "241,241,241": "text",   // #f1f1f1  primary text
   "170,170,170": "text2",  // #aaaaaa  secondary text
   "62,166,255": "accent",  // #3ea6ff  links / call to action
+  "18,18,18": "base",      // #121212  search box
+  "34,34,34": "raised",    // #222222  search button
+  "48,48,48": "chipHover", // #303030  search box border, outlines
   // see-through whites used for hover states, dividers and borders
   "255,255,255,0.1": "overlay1",
   "255,255,255,0.2": "overlay2",
@@ -162,6 +165,12 @@ function remapByValue() {
       if (decls.length) blocks.push(`${rule.selectorText} { ${decls.join(" ")} }`);
     }
   }
+  // Light themes: hide Ambient mode's glow on the watch page. It's a blurred, darkened
+  // copy of the video drawn behind the player; fine on a dark page, a black smear on a light one.
+  if ((THEMES[currentTheme] || THEMES.default).light) {
+    blocks.push(`#cinematics, #cinematics-container { display: none !important; }`);
+  }
+
   // Light themes: the YouTube logo's lettering is plain white in dark mode,
   // which would vanish on a light background, so paint it with the text colour
   if ((THEMES[currentTheme] || THEMES.default).light) {
